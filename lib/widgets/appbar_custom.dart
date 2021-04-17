@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app/views/Signin.dart';
 
 class AppBarCustom extends StatefulWidget implements PreferredSizeWidget {
-  AppBarCustom({Key key})
+  final List<Tab> menuTap;
+  AppBarCustom({Key key, @required this.menuTap})
       : preferredSize = Size.fromHeight(100.0),
         super(key: key);
   @override
@@ -58,28 +59,11 @@ class _AppBarCustomState extends State<AppBarCustom> {
         )
       ],
       bottom: TabBar(
-        labelColor: Colors.black,
-        indicatorWeight: 4,
-        indicatorColor: Colors.orangeAccent,
-        isScrollable: true,
-        tabs: [
-          Tab(
-            child: Text('สำหรับคุณ'),
-          ),
-          Tab(
-            child: Text('อันดับสูงสุด'),
-          ),
-          Tab(
-            child: Text('หมวดหมู่'),
-          ),
-          Tab(
-            child: Text('โดนใจ บก.'),
-          ),
-          Tab(
-            child: Text('ครอบครัว'),
-          ),
-        ],
-      ),
+          labelColor: Colors.black,
+          indicatorWeight: 4,
+          indicatorColor: Colors.orangeAccent,
+          isScrollable: true,
+          tabs: widget.menuTap),
     );
   }
 }

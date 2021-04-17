@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app/views/app_view.dart';
 import 'package:flutter_app/views/game_view.dart';
 import 'package:flutter_app/views/movie_view.dart';
-import 'package:flutter_app/widgets/appbar_custom.dart';
 import 'package:flutter_app/widgets/bottom_nav_custom.dart';
 
 class Home extends StatefulWidget {
@@ -17,6 +16,7 @@ class _HomeState extends State<Home> {
     AppView(),
     GameView(),
     MovieView(),
+    Text('Movie')
   ];
 
   void _onItemTapped(int index) {
@@ -27,31 +27,15 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    return DefaultTabController(
-      length: 5,
-      child: Scaffold(
-          //appBar: AppBarCustom(),
-          body: TabBarView(children: [
-            SafeArea(
-              child: _widgetOptions.elementAt(_selectedIndex),
-            ),
-            SafeArea(
-              child: _widgetOptions.elementAt(_selectedIndex),
-            ),
-            SafeArea(
-              child: _widgetOptions.elementAt(_selectedIndex),
-            ),
-            SafeArea(
-              child: _widgetOptions.elementAt(_selectedIndex),
-            ),
-            SafeArea(
-              child: _widgetOptions.elementAt(_selectedIndex),
-            ),
-          ]),
-          bottomNavigationBar: BottomNavCustom(
-            selectedIndex: _selectedIndex,
-            onItemTapped: _onItemTapped,
-          )),
-    );
+    return Scaffold(
+        //appBar: AppBarCustom(),
+        body: IndexedStack(
+          children: _widgetOptions,
+          index: _selectedIndex,
+        ),
+        bottomNavigationBar: BottomNavCustom(
+          selectedIndex: _selectedIndex,
+          onItemTapped: _onItemTapped,
+        ));
   }
 }

@@ -22,8 +22,8 @@ class BottomNavCustom extends StatelessWidget {
           label: 'Movie',
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.local_movies),
-          label: 'Movie',
+          icon: Icon(Icons.book_rounded),
+          label: 'Book',
         ),
       ],
       currentIndex: selectedIndex,
