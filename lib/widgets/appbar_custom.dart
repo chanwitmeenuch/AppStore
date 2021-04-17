@@ -28,15 +28,17 @@ class _AppBarCustomState extends State<AppBarCustom> {
     return AppBar(
       leading: IconButton(
         onPressed: () {
-          showModalBottomSheet(
-              context: context,
-              builder: (_) {
-                return Signin(
-                  showPassword: _showPassword,
-                  changePassword: _changePassword,
-                  signin: _login,
-                );
-              });
+          // showModalBottomSheet(
+          //     context: context,
+          //     builder: (_) {
+          //       return Signin(
+          //         showPassword: _showPassword,
+          //         changePassword: _changePassword,
+          //         signin: _login,
+          //       );
+          //     });
+          Navigator.of(context)
+              .push(_createRoute(_showPassword, _changePassword, _login));
         },
         icon: Icon(
           Icons.person_pin,
@@ -59,11 +61,35 @@ class _AppBarCustomState extends State<AppBarCustom> {
         )
       ],
       bottom: TabBar(
-          labelColor: Colors.black,
+          unselectedLabelColor: Colors.black,
+          labelColor: Colors.orangeAccent,
           indicatorWeight: 4,
           indicatorColor: Colors.orangeAccent,
           isScrollable: true,
           tabs: widget.menuTap),
     );
   }
+}
+
+Route _createRoute(
+    bool showPassword, Function changePassword, Function signIn) {
+  return PageRouteBuilder(
+    pageBuilder: (context, animation, secondaryAnimation) => Signin(
+      showPassword: showPassword,
+      changePassword: changePassword,
+      signin: signIn,
+    ),
+    transitionsBuilder: (context, animation, secondaryAnimation, child) {
+      var begin = Offset(0.0, 1.0);
+      var end = Offset.zero;
+      var curve = Curves.ease;
+
+      var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+
+      return SlideTransition(
+        position: animation.drive(tween),
+        child: child,
+      );
+    },
+  );
 }
